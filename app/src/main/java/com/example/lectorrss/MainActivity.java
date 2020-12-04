@@ -18,10 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycleView);
 
-        ListaProgramas listaProgramas = new ListaProgramas();
-
         LectorRss lectorRss = new LectorRss(this, recyclerView);
         lectorRss.execute();
-
     }
 }

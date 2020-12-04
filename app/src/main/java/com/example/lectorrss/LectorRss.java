@@ -30,15 +30,6 @@ public class LectorRss extends AsyncTask<Void, Void, Void> {
     RecyclerView recyclerView;
     String direccion = "https://www.ivoox.com/podcast-area-88_fg_f1250443_filtro_1.xml";
 
-   
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
     URL url;
     ProgressDialog progressDialog;
 
