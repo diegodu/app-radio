@@ -51,7 +51,7 @@
             android:layout_height="350dp"
             android:layout_gravity="center_horizontal"
             android:paddingTop="20px"
-            app:srcCompat="@drawable/ejemplo" />
+            app:srcCompat="@drawable/ic" />
         <TextView
             android:id="@+id/textAudio"
             android:textSize="18sp"

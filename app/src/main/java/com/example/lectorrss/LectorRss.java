@@ -43,7 +43,7 @@ public class LectorRss extends AsyncTask<Void, Void, Void> {
         this.recyclerView = recyclerView;
         this.context = context;
         progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Cargando...");
+        progressDialog.setMessage("");
 
     }
     @Override
