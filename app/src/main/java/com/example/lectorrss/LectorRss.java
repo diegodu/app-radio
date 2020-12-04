@@ -3,6 +3,7 @@ package com.example.lectorrss;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,10 +25,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class LectorRss extends AsyncTask<Void, Void, Void> {
     ArrayList<Noticia> noticias;
 
+
     Context context;
     RecyclerView recyclerView;
     String direccion = "https://www.ivoox.com/podcast-area-88_fg_f1250443_filtro_1.xml";
 
+   
     public String getDireccion() {
         return direccion;
     }
