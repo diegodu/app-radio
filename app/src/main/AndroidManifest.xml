@@ -11,16 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LectorRSS">
-        <activity
-            android:name=".Detalles"
-            android:label="@string/title_activity_detalles"
-            android:theme="@style/Theme.LectorRSS.NoActionBar"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashScreen" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Detalles"
+            android:label="@string/title_activity_detalles"
+            android:theme="@style/Theme.LectorRSS.NoActionBar" />
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 
