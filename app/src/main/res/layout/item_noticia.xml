@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:textSize="30sp"
+            android:textColor="@color/design_default_color_primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:text="Caída y Limpia: Martes, 1 de diciembre de 2020" />
+
+
+        <TextView
+            android:id="@+id/textFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="23 de Junio de 2020"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+
+
+        <TextView
+            android:id="@+id/textDescripcion"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/design_default_color_secondary_variant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Caída y Limpia, es la dosis de risoterapia que necesitas. Escucha de Lunes a Viernes." />
+
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="350dp"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="20px"
+            app:srcCompat="@drawable/ejemplo" />
+        <TextView
+            android:id="@+id/textAudio"
+            android:textSize="18sp"
+            android:layout_margin="10dp"
+            android:textColor="@color/design_default_color_primary_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="http://www.ivoox.com/caida-limpia-martes-1-diciembre-de_mf_61245532_feed_1.mp3" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
