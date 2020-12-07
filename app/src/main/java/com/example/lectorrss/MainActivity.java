@@ -19,12 +19,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
     }
 
     public void button_Pagin(View view){
+        String direccion = "https://www.ivoox.com/podcast-tacones-braguetas_fg_f1167230_filtro_1.xml";
         Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
         startActivity(intent);
 
     }
