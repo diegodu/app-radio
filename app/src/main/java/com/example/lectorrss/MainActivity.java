@@ -26,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this,RadioDatos.class);
         intent.putExtra("url",direccion);
         startActivity(intent);
-
+    }
+    public void button_Pagin1(View view){
+        String direccion = "https://www.ivoox.com/podcast-area-88_fg_f1250443_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
     }
 }
