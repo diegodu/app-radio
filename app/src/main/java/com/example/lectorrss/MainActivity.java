@@ -23,8 +23,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void button_Pagin(View view){
+    public void button_area88(View view){
+        String direccion = "https://www.ivoox.com/podcast-area-88_fg_f1250443_filtro_1.xml";
         Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+    }
+    public void button_cafe88(View view){
+        String direccion = "https://www.ivoox.com/podcast-cafe-88_fg_f1394031_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+
+    }
+    public void button_deportes(View view){
+        String direccion = "https://www.ivoox.com/podcast-deportivas_fg_f1854129_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
         startActivity(intent);
 
     }
