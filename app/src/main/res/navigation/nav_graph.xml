@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_radioDatos"
+            app:destination="@id/radioDatos" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -25,4 +28,9 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <activity
+        android:id="@+id/radioDatos"
+        android:name="com.example.lectorrss.RadioDatos"
+        android:label="activity_radio_datos"
+        tools:layout="@layout/activity_radio_datos" />
 </navigation>

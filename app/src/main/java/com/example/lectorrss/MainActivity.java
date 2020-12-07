@@ -1,7 +1,10 @@
 package com.example.lectorrss;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,9 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recycleView);
 
-        LectorRss lectorRss = new LectorRss(this, recyclerView);
-        lectorRss.execute();
+
+    }
+
+    public void button_Pagin(View view){
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        startActivity(intent);
+
     }
 }
