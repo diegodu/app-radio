@@ -43,4 +43,25 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+    public void button_Radioactivo(View view){
+        String direccion = "https://www.ivoox.com/podcast-playlist-radioactivo_fg_f1164337_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+
+    }
+    public void button_Triple_Sentido(View view){
+        String direccion = "https://www.ivoox.com/podcast-triple-sentido_fg_f1276087_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+
+    }
+    public void button_Caida_Limpia(View view){
+        String direccion = "https://www.ivoox.com/podcast-caida-limpia_fg_f1164371_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+
+    }
 }
