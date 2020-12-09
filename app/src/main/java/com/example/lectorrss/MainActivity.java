@@ -42,31 +42,61 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("url",direccion);
         startActivity(intent);
     }
-    public void button_Pagin1(View view){
-        String direccion = "https://www.ivoox.com/podcast-area-88_fg_f1250443_filtro_1.xml";
-        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
-        intent.putExtra("url",direccion);
-        startActivity(intent);
-    }
-    public void button_Radioactivo(View view){
-        String direccion = "https://www.ivoox.com/podcast-playlist-radioactivo_fg_f1164337_filtro_1.xml";
-        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
-        intent.putExtra("url",direccion);
-        startActivity(intent);
-
-    }
-    public void button_Triple_Sentido(View view){
-        String direccion = "https://www.ivoox.com/podcast-triple-sentido_fg_f1276087_filtro_1.xml";
-        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
-        intent.putExtra("url",direccion);
-        startActivity(intent);
-
-    }
-    public void button_Caida_Limpia(View view){
+    public void caida_limpia(View view){
         String direccion = "https://www.ivoox.com/podcast-caida-limpia_fg_f1164371_filtro_1.xml";
         Intent intent = new Intent(MainActivity.this,RadioDatos.class);
         intent.putExtra("url",direccion);
         startActivity(intent);
-
     }
+    public void fanaticos_camp(View view){
+        String direccion = "https://www.ivoox.com/podcast-fanaticos-campeones_fg_f1166031_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+    }
+
+    public void Triple_Sentido(View view){
+        String direccion = "https://www.ivoox.com/podcast-triple-sentido_fg_f1276087_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+    }
+
+    public void Playlist_Radioactivo(View view){
+        String direccion = "https://www.ivoox.com/podcast-playlist-radioactivo_fg_f1164337_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+    }
+    public void TaconesyBraguetas(View view){
+        String direccion = "https://www.ivoox.com/podcast-tacones-braguetas_fg_f1167230_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+    }
+
+
+    public void EntrevistasFM88(View view){
+        String direccion = "https://www.ivoox.com/podcast-entrevistas-fm88_fg_f1250444_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+    }
+    public void Personalisimo(View view){
+        String direccion = "https://www.ivoox.com/podcast-personalisimo_fg_f1167227_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+    }
+
+
+    public void Enlasmejoresmanos(View view){
+        String direccion = "https://www.ivoox.com/podcast-en-mejores-manos_fg_f1174942_filtro_1.xml";
+        Intent intent = new Intent(MainActivity.this,RadioDatos.class);
+        intent.putExtra("url",direccion);
+        startActivity(intent);
+    }
+
+
+
 }
