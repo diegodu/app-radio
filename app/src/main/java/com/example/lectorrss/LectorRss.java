@@ -33,16 +33,20 @@ public class LectorRss extends AsyncTask<Void, Void, Void> {
     URL url;
     ProgressDialog progressDialog;
 
+
+
     public LectorRss(Context context, RecyclerView recyclerView){
         this.recyclerView = recyclerView;
         this.context = context;
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("");
 
+
     }
     @Override
     protected void onPreExecute() {
         progressDialog.show();
+
         super.onPreExecute();
     }
 
@@ -52,6 +56,7 @@ public class LectorRss extends AsyncTask<Void, Void, Void> {
         AdapterNoticia adapterNoticia = new AdapterNoticia(noticias,context);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapterNoticia);
+
         super.onPostExecute(aVoid);
     }
 

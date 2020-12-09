@@ -2,9 +2,12 @@ package com.example.lectorrss;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,21 +27,35 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         this.context = context;
     }
 
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_noticia,parent,false);
         MyViewHolder holder = new MyViewHolder(view);
+
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
+        String url;
         Noticia actual=noticias.get(position);
         holder.mTitulo.setText(actual.getnTitulo());
         holder.mDescripcion.setText(corregirDescripcion(actual.getmDescripcion()));
         holder.mFecha.setText(actual.getmFechaPub());
        // holder.mDuracion.setText(actual.getMduracion());
+
+        url = actual.mAudio;
+        holder.btnAudio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                context.startActivity(intent);
+            }
+        });
 
         Picasso.with(context).load(actual.getmImagen()).into(holder.mImagen);
         holder.mImagen.setOnClickListener(new View.OnClickListener() {
@@ -68,15 +85,27 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView mTitulo, mDescripcion, mFecha, mDuracion;
         ImageView mImagen;
+        Button btnAudio;
+
+
+
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
             mTitulo = (TextView) itemView.findViewById(R.id.txtTitulo);
             mDescripcion = (TextView) itemView.findViewById(R.id.textDescripcion);
+            mDescripcion.setMovementMethod(new ScrollingMovementMethod());
             mFecha = (TextView) itemView.findViewById(R.id.textFecha);
         //    mDuracion = (TextView) itemView.findViewById(R.id.textDuracion);
             mImagen = (ImageView) itemView.findViewById(R.id.imageView3);
 
+            btnAudio = (Button) itemView.findViewById(R.id.btn_audio);
+
+
+
 
         }
     }
+
 }
