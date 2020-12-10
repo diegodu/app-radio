@@ -41,7 +41,7 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:padding="12dp"
-                    android:gravity="center"
+                    android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -56,7 +56,8 @@
                         android:textColor="@color/black"
                         android:layout_marginTop="12dp"
                         android:text="Area 88"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -90,7 +91,8 @@
                         android:textColor="@color/black"
                         android:layout_marginTop="12dp"
                         android:text="Cafe 88"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -124,7 +126,8 @@
                         android:textColor="@color/black"
                         android:layout_marginTop="12dp"
                         android:text="Deportivas"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -157,7 +160,8 @@
                         android:textColor="@color/black"
                         android:layout_marginTop="12dp"
                         android:text="Caida y Limpia"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -186,11 +190,12 @@
                         android:onClick="fanaticos_camp"/>
 
                     <TextView
-                        android:textSize="8dp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="20dp"
                         android:text="Fanáticos y Campeones"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -223,7 +228,8 @@
                         android:textColor="@color/black"
                         android:layout_marginTop="12dp"
                         android:text="Triple Sentido"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -252,11 +258,12 @@
                         android:onClick="Playlist_Radioactivo"/>
 
                     <TextView
-                        android:textSize="8dp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:layout_marginTop="12dp"
                         android:text="Playlist Radioactivo"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -285,11 +292,12 @@
                         android:onClick="TaconesyBraguetas"/>
 
                     <TextView
-
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:layout_marginTop="12dp"
                         android:text="Tacones y Braguetas"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -318,11 +326,12 @@
                         android:onClick="EntrevistasFM88"/>
 
                     <TextView
-                        android:textSize="8dp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:layout_marginTop="12dp"
                         android:text="EntrevistasFM88"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -356,7 +365,8 @@
                         android:textColor="@color/black"
                         android:layout_marginTop="12dp"
                         android:text="Personalisimo"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -387,11 +397,12 @@
                         android:onClick="Enlasmejoresmanos"/>
 
                     <TextView
-                        android:textSize="8dp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:layout_marginTop="12dp"
                         android:text="En las mejores manos"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
