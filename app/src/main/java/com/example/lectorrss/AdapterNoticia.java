@@ -1,5 +1,7 @@
 package com.example.lectorrss;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -8,10 +10,12 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -26,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,6 +45,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
     ArrayList<Noticia> noticias;
     Context context;
     String url;
+    private static final int PERMISSION_STORAGE_CODE = 1000;
     private PendingIntent pendingIntent;
     private static final String CHANNEL_ID = "NOTIFICACION";
     private static final int NOTIFICACION_ID = 0;
@@ -79,14 +85,31 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             public void onClick(View v) {
               //  setPendingIntenet();
               //  createNotificacion();
-                Uri uri = Uri.parse(url);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                context.startActivity(intent);
+             //   Uri uri = Uri.parse(url);
+             //  Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+             //  context.startActivity(intent);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ActivityCompat.checkSelfPermission((Activity)context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        ActivityCompat.requestPermissions((Activity) context,permissions,PERMISSION_STORAGE_CODE);
+                        Log.d("APROBO","Aprobo la validacion1-------------------------------");
+                    }
+                    else{
+                        startDowloading(url);
+                        Log.d("APROBO","Aprobo la validacion2-------------------------------");
+                    }
+                }else {
+                    startDowloading(url);
+                    Log.d("APROBO","Aprobo la validacion3-------------------------------");
+                }
+
+
             }
 
 
 
         });
+
 
         Picasso.with(context).load(actual.getmImagen()).into(holder.mImagen);
         holder.mImagen.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +123,21 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         holder.prepareMediPLayer(url);
 
 
+    }
+    private void startDowloading(String ur){
+
+        String urll = ur;
+        DownloadManager.Request request= new DownloadManager.Request(Uri.parse(urll));
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                DownloadManager.Request.NETWORK_MOBILE);
+        Log.d("LLEGA","LLEGO EL DATO AL LA CLASEEEE"+ urll);
+        request.setTitle("Descargando");
+        request.setTitle("Descargando archivo ....");
+        request.allowScanningByMediaScanner();
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, ""+System.currentTimeMillis());
+        DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        manager.enqueue(request);
     }
 
     private String corregirDescripcion(String s) {
