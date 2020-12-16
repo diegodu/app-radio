@@ -1,26 +1,43 @@
 package com.example.lectorrss;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Downloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHolder> {
+    public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHolder> {
     ArrayList<Noticia> noticias;
     Context context;
+
+
+
+
+
 
     public AdapterNoticia(ArrayList<Noticia> noticias, Context context) {
         this.noticias = noticias;
@@ -31,11 +48,16 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+
         View view = LayoutInflater.from(context).inflate(R.layout.item_noticia,parent,false);
         MyViewHolder holder = new MyViewHolder(view);
 
         return holder;
     }
+
+
+
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -47,15 +69,32 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         holder.mFecha.setText(actual.getmFechaPub());
        // holder.mDuracion.setText(actual.getMduracion());
 
+
+
+
         url = actual.mAudio;
+
         holder.btnAudio.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse(url);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                context.startActivity(intent);
+                Log.d("CREATION", "INGRESO AL BOTON CON EXITO------------- ");
+
+
+
             }
+
+
+
+
         });
+
+
+
+        //////////////////////////////////////////////////////////////////////
+
+
+
 
         Picasso.with(context).load(actual.getmImagen()).into(holder.mImagen);
         holder.mImagen.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +106,17 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             }
         });
 
+
     }
+
+
+
+
+
+
+
+
+
 
     private String corregirDescripcion(String s) {
         String descripcionOriginal= s;
@@ -88,7 +137,8 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         Button btnAudio;
 
 
-
+        Button play;
+        
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -107,5 +157,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
         }
     }
+
+
 
 }
