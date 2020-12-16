@@ -183,7 +183,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             textTotalDuracion = (TextView) itemView.findViewById(R.id.textTotalDuracion);
             playerSeekBar = (SeekBar) itemView.findViewById(R.id.playerSeekBar);
             mediaPlayer = new MediaPlayer();
-            downloadAudio = (Button) itemView.findViewById(R.id.downloadAudio);
+
 
             playerSeekBar.setMax(100);
 
