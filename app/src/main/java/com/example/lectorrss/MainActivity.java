@@ -1,6 +1,8 @@
 package com.example.lectorrss;
 
 
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.example.lectorrss.LectorRss;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
+    PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
+
+    }
+    public void LanzarNotificacion(View v){
+        Intent intent = new Intent(this, RadioDatos.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(RadioDatos.class);
+        stackBuilder.addNextIntent(intent);
+        pendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
 
     }
 
