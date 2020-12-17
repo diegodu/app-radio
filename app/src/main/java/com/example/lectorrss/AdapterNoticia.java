@@ -27,7 +27,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -38,8 +37,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import java.util.logging.LogRecord;
 
 public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHolder> {
     ArrayList<Noticia> noticias;
@@ -64,7 +61,6 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_noticia,parent,false);
         MyViewHolder holder = new MyViewHolder(view);
-
         return holder;
     }
 
@@ -104,7 +100,6 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     Log.d("APROBO","Aprobo la validacion3-------------------------------");
                 }
 
-
             }
 
 
@@ -121,7 +116,9 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                 context.startActivity(intent);
             }
         });
+
         holder.prepareMediPLayer(url);
+
 
 
 
@@ -194,15 +191,14 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             ImagePlayPause.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     if(mediaPlayer.isPlaying()){
                         Log.d("Audio", "pause");
                         setPendingIntenet();
                         createNotificacionChannel();
                         createNotificacion();
-
                         handler.removeCallbacks(updater);
                         mediaPlayer.pause();
-
                         ImagePlayPause.setImageResource(R.drawable.ic_play);
                     }else{
                         Log.d("Audio", "play");
@@ -213,9 +209,8 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                         updateSeekBar();
                     }
 
+
                 }
-
-
 
                 private void setPendingIntenet() {
                     Intent intent = new Intent(String.valueOf(this));
