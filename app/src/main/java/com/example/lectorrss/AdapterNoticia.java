@@ -77,17 +77,18 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         holder.mTitulo.setText(actual.getnTitulo());
         holder.mDescripcion.setText(corregirDescripcion(actual.getmDescripcion()));
         holder.mFecha.setText(actual.getmFechaPub());
-        // holder.mDuracion.setText(actual.getMduracion());
+
+       // holder.mDuracion.setText(actual.getMduracion());
 
         url = actual.mAudio;
         holder.btnAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //  setPendingIntenet();
-                //  createNotificacion();
-                //   Uri uri = Uri.parse(url);
-                //  Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                //  context.startActivity(intent);
+              //  setPendingIntenet();
+              //  createNotificacion();
+             //   Uri uri = Uri.parse(url);
+             //  Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+             //  context.startActivity(intent);
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ActivityCompat.checkSelfPermission((Activity)context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
                         String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -121,6 +122,9 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             }
         });
         holder.prepareMediPLayer(url);
+
+
+
 
 
     }
@@ -172,7 +176,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             mDescripcion = (TextView) itemView.findViewById(R.id.textDescripcion);
             mDescripcion.setMovementMethod(new ScrollingMovementMethod());
             mFecha = (TextView) itemView.findViewById(R.id.textFecha);
-            //    mDuracion = (TextView) itemView.findViewById(R.id.textDuracion);
+        //    mDuracion = (TextView) itemView.findViewById(R.id.textDuracion);
             mImagen = (ImageView) itemView.findViewById(R.id.imageView3);
 
             btnAudio = (Button) itemView.findViewById(R.id.btn_audio);
@@ -186,10 +190,12 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
             playerSeekBar.setMax(100);
 
+
             ImagePlayPause.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(mediaPlayer.isPlaying()){
+                        Log.d("Audio", "pause");
                         setPendingIntenet();
                         createNotificacionChannel();
                         createNotificacion();
@@ -199,14 +205,17 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
                         ImagePlayPause.setImageResource(R.drawable.ic_play);
                     }else{
+                        Log.d("Audio", "play");
                         createNotificacionChannel();
                         createNotificacion();
                         mediaPlayer.start();
                         ImagePlayPause.setImageResource(R.drawable.ic_pause);
                         updateSeekBar();
-
                     }
+
                 }
+
+
 
                 private void setPendingIntenet() {
                     Intent intent = new Intent(String.valueOf(this));
@@ -266,10 +275,11 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         }
         public void prepareMediPLayer(String url){
             try {
-
+                Log.d("Prepare","musica");
                 mediaPlayer.setDataSource(url);
                 mediaPlayer.prepare();
                 textTotalDuracion.setText(milisecondToTime(mediaPlayer.getDuration()));
+
 
             }catch (Exception e){
 
