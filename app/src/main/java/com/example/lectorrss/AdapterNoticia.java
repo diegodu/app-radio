@@ -45,6 +45,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
     ArrayList<Noticia> noticias;
     Context context;
     String url;
+    private boolean bandera = true;
     private static final int PERMISSION_STORAGE_CODE = 1000;
     private PendingIntent pendingIntent;
     private static final String CHANNEL_ID = "NOTIFICACION";
@@ -194,7 +195,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             ImagePlayPause.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mediaPlayer.isPlaying()){
+                    if(mediaPlayer.isPlaying() && bandera == false){
                         Log.d("Audio", "pause");
                         setPendingIntenet();
                         createNotificacionChannel();
@@ -204,13 +205,19 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                         mediaPlayer.pause();
 
                         ImagePlayPause.setImageResource(R.drawable.ic_play);
+                        bandera = true;
+                        Log.d("BANDERA", "Valor del boleano PAUSAR :"+ bandera);
                     }else{
-                        Log.d("Audio", "play");
-                        createNotificacionChannel();
-                        createNotificacion();
-                        mediaPlayer.start();
-                        ImagePlayPause.setImageResource(R.drawable.ic_pause);
-                        updateSeekBar();
+                        if(bandera == true) {
+                            Log.d("Audio", "play");
+                            createNotificacionChannel();
+                            createNotificacion();
+                            mediaPlayer.start();
+                            ImagePlayPause.setImageResource(R.drawable.ic_pause);
+                            updateSeekBar();
+                            bandera = false;
+                            Log.d("BANDERA", "Valor del boleano REPRODUCIR :"+ bandera);
+                        }
                     }
 
                 }
