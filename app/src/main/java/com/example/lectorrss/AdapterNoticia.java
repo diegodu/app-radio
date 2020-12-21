@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -36,7 +37,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import java.util.logging.LogRecord;
 
 public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHolder> {
     ArrayList<Noticia> noticias;
@@ -62,6 +66,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_noticia,parent,false);
         MyViewHolder holder = new MyViewHolder(view);
+
         return holder;
     }
 
@@ -75,17 +80,22 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         holder.mDescripcion.setText(corregirDescripcion(actual.getmDescripcion()));
         holder.mFecha.setText(actual.getmFechaPub());
 
-       // holder.mDuracion.setText(actual.getMduracion());
+        // holder.mDuracion.setText(actual.getMduracion());
+
 
         url = actual.mAudio;
+        if (holder.mediaPlayer.isPlaying()){
+            holder.mediaPlayer.stop();
+            holder.prepareMediPLayer(url);
+        }
         holder.btnAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  setPendingIntenet();
-              //  createNotificacion();
-             //   Uri uri = Uri.parse(url);
-             //  Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-             //  context.startActivity(intent);
+                //  setPendingIntenet();
+                //  createNotificacion();
+                //   Uri uri = Uri.parse(url);
+                //  Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                //  context.startActivity(intent);
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ActivityCompat.checkSelfPermission((Activity)context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
                         String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -100,7 +110,6 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     startDowloading(url);
                     Log.d("APROBO","Aprobo la validacion3-------------------------------");
                 }
-
             }
 
 
@@ -117,7 +126,6 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                 context.startActivity(intent);
             }
         });
-
         holder.prepareMediPLayer(url);
 
 
@@ -174,7 +182,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             mDescripcion = (TextView) itemView.findViewById(R.id.textDescripcion);
             mDescripcion.setMovementMethod(new ScrollingMovementMethod());
             mFecha = (TextView) itemView.findViewById(R.id.textFecha);
-        //    mDuracion = (TextView) itemView.findViewById(R.id.textDuracion);
+            //    mDuracion = (TextView) itemView.findViewById(R.id.textDuracion);
             mImagen = (ImageView) itemView.findViewById(R.id.imageView3);
 
             btnAudio = (Button) itemView.findViewById(R.id.btn_audio);
@@ -192,23 +200,20 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             ImagePlayPause.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-<<<<<<< HEAD
-
-                    if(mediaPlayer.isPlaying()){
-=======
-                    if(mediaPlayer.isPlaying() && bandera == false){
->>>>>>> 2b349db84f450ced7c38843d6dbe9cb1a83f2357
+                    if (mediaPlayer.isPlaying() && bandera == false) {
                         Log.d("Audio", "pause");
                         setPendingIntenet();
                         createNotificacionChannel();
                         createNotificacion();
+
                         handler.removeCallbacks(updater);
                         mediaPlayer.pause();
+
                         ImagePlayPause.setImageResource(R.drawable.ic_play);
                         bandera = true;
-                        Log.d("BANDERA", "Valor del boleano PAUSAR :"+ bandera);
-                    }else{
-                        if(bandera == true) {
+                        Log.d("BANDERA", "Valor del boleano PAUSAR :" + bandera);
+                    } else {
+                        if (bandera == true) {
                             Log.d("Audio", "play");
                             createNotificacionChannel();
                             createNotificacion();
@@ -216,12 +221,17 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                             ImagePlayPause.setImageResource(R.drawable.ic_pause);
                             updateSeekBar();
                             bandera = false;
-                            Log.d("BANDERA", "Valor del boleano REPRODUCIR :"+ bandera);
+                            Log.d("BANDERA", "Valor del boleano REPRODUCIR :" + bandera);
                         }
+
                     }
 
 
                 }
+
+
+
+
 
                 private void setPendingIntenet() {
                     Intent intent = new Intent(String.valueOf(this));
@@ -254,6 +264,11 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
                     NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context.getApplicationContext());
                     notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
+                }
+                private void cancelNotificacion(){
+                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.cancel(NOTIFICACION_ID);
+
                 }
             });
             prepareMediPLayer("");
