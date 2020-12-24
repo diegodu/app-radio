@@ -186,10 +186,13 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         @Override
         protected String doInBackground(MyViewHolder... f_url) {
 
+            File directorio = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Radio88");
+            //Muestro un mensaje en el logcat si no se creo la carpeta por algun motivo
+            if (!directorio.mkdirs())
+                Log.e("ARCHIVOCREADO", "Error: No se creo el directorio público");
 
 
 
-                    Log.e("ARCHIVOCREADO", "Error: No se creo el directorio público");
 
 
 
