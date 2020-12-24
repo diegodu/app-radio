@@ -25,9 +25,9 @@ public class MyService extends Service {
         Log.d("gf","hollaaaaaa");
         url = adapterNoticia.url;
         mediaPlayer = MediaPlayer.create(this, Uri.parse(url));
-        mediaPlayer.setLooping(true);
         mediaPlayer.start();
         return mediaPlayer.getCurrentPosition();
+
 
     }
 
