@@ -354,16 +354,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
     }
 
 
-
-
-
-
-
     ////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
 
     private String corregirDescripcion(String s) {
         String descripcionOriginal= s;
@@ -411,7 +402,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             mediaPlayer = new MediaPlayer();
 
 //            progress_bar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
- //           textCarga = (TextView) itemView.findViewById(R.id.textCarga);
+            //           textCarga = (TextView) itemView.findViewById(R.id.textCarga);
             carga = textCarga;
 
 
@@ -421,11 +412,10 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             ImagePlayPause.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mediaPlayer.isPlaying() && bandera == false){
+                    if(mediaPlayer.isPlaying()){
                         Log.d("Audio", "pause");
                         setPendingIntenet();
                         cancelNotificacion();
-
 
                         handler.removeCallbacks(updater);
                         mediaPlayer.pause();
@@ -434,19 +424,22 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                         bandera = true;
                         Log.d("BANDERA", "Valor del boleano PAUSAR :"+ bandera);
                     }else{
-                        if(bandera == true) {
-                            Log.d("Audio", "play");
-                            createNotificacionChannel();
-                            createNotificacion();
-                            mediaPlayer.start();
-                            ImagePlayPause.setImageResource(R.drawable.ic_pause);
-                            updateSeekBar();
-                            bandera = false;
-                            Log.d("BANDERA", "Valor del boleano REPRODUCIR :"+ bandera);
+
+                        Log.d("Audio", "play");
+                        createNotificacionChannel();
+                        createNotificacion();
+
+                        mediaPlayer.start();
+
+                        ImagePlayPause.setImageResource(R.drawable.ic_pause);
+                        updateSeekBar();
+                        bandera = false;
+
+                        Log.d("BANDERA", "Valor del boleano REPRODUCIR :"+ bandera);
                         }
-                    }
 
                 }
+
 
 
 
@@ -458,7 +451,6 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     pendingIntent = taskStackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 }
-
 
                 private void createNotificacionChannel() {
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
