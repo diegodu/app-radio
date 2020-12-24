@@ -354,8 +354,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     if(mediaPlayer.isPlaying() && bandera == false){
                         Log.d("Audio", "pause");
                         setPendingIntenet();
-                        createNotificacionChannel();
-                        createNotificacion();
+                        cancelNotificacion();
 
                         handler.removeCallbacks(updater);
                         mediaPlayer.pause();
@@ -412,6 +411,14 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context.getApplicationContext());
                     notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
                 }
+
+                private void cancelNotificacion(){
+                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.cancel(NOTIFICACION_ID);
+
+                }
+
+
             });
             prepareMediPLayer("");
             playerSeekBar.setOnTouchListener(new View.OnTouchListener() {
