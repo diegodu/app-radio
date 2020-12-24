@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
 
@@ -81,7 +81,30 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/btn_audio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descargar"
+                    />
 
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    />
+
+                <TextView
+                    android:id="@+id/textCarga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Hola mundo"
+                    android:textColor="#212121"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    />
 
 
                 <LinearLayout
@@ -127,13 +150,6 @@
                         android:textSize="18sp"
                         android:textStyle="bold"/>
                 </LinearLayout>
-                <Button
-                    android:id="@+id/btn_audio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Descargar"
-
-                    />
 
 
 

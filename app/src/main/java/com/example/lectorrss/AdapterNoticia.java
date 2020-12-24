@@ -55,6 +55,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.LogRecord;
 
+
+
+//Utilizamos una extencion de RecyclerView.Adapter la cual nos permitira mostrar un listado de elementos
+//en este caso las tarjetas
 public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHolder> {
     ArrayList<Noticia> noticias;
     Context context;
@@ -99,7 +103,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         holder.mTitulo.setText(actual.getnTitulo());
         holder.mDescripcion.setText(corregirDescripcion(actual.getmDescripcion()));
         holder.mFecha.setText(actual.getmFechaPub());
-//        holder.textCarga.setText(actual.mAudio);
+        holder.textCarga.setText(actual.mAudio);
 
 
 
@@ -108,17 +112,17 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
 
-        // holder.mDuracion.setText(actual.getMduracion());
+       // holder.mDuracion.setText(actual.getMduracion());
 
         url = actual.mAudio;
         holder.btnAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //  setPendingIntenet();
-                //  createNotificacion();
-                //   Uri uri = Uri.parse(url);
-                //  Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                //  context.startActivity(intent);
+              //  setPendingIntenet();
+              //  createNotificacion();
+             //   Uri uri = Uri.parse(url);
+             //  Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+             //  context.startActivity(intent);
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
                     if (ActivityCompat.checkSelfPermission((Activity)context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
@@ -163,80 +167,9 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
     }
 
 
-    private void startDowloading(String ur, MyViewHolder hol) {
-
-
-
-
-        File directorio = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Radio88");
-        //Muestro un mensaje en el logcat si no se creo la carpeta por algun motivo
-        if (!directorio.mkdirs())
-            Log.e("ARCHIVOCREADO", "Error: No se creo el directorio público");
-
-
-
-        String urll = ur;
-        DownloadManager.Request request= new DownloadManager.Request(Uri.parse(urll));
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-                DownloadManager.Request.NETWORK_MOBILE);
-        Log.d("LLEGA","LLEGO EL DATO AL LA CLASEEEE"+ urll);
-        request.setTitle("Descargando");
-        request.setTitle("Descargando archivo ....");
-        request.allowScanningByMediaScanner();
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS+"/Radio88", "/Radio88"+System.currentTimeMillis());
-        DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-        long id = manager.enqueue(request);
-
-
-
-        Timer myTimer = new Timer();
-        TimerTask tk = new TimerTask() {
-            @Override
-            public void run() {
-
-
-                DownloadManager.Query q = new DownloadManager.Query();
-                q.setFilterById(id);
-                Cursor cursor = manager.query(q);
-                cursor.moveToFirst();
-                int bytes_downloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
-                int bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
-                cursor.close();
-                int dl_progress = (bytes_downloaded * 100 / bytes_total);
-                if (dl_progress <= 0) {
-                    dl_progress = 100;
-
-                }else {
-                    if(dl_progress >= 100){
-                        dl_progress = 0;
-
-                    }
-                }
-                hol.progress_bar.setProgress(dl_progress);
-
-                Log.e("DESCARGAs", "Tiempo empleado : "+ dl_progress);
-                hol.textCarga.setText("Todo tk");
-
-
-                if(bytes_downloaded == bytes_total){
-                    Log.e("DESCARGASSSS", "Se esta descargando "+bytes_downloaded+":"+bytes_total+"Tiempo empleado -------------------: "+ dl_progress);
-                    myTimer.cancel();
-                }
-            }
-        };
-        myTimer.schedule(tk, 0, 100);
-
-
-
-    }
-
-
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     class DownloadFileFromURL extends AsyncTask<MyViewHolder, String, String> {
-        private int contad = 0;
         MyViewHolder hol;
         /**
          * Before starting background thread
@@ -256,72 +189,65 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
 
-            Log.e("ARCHIVOCREADO", "Error: No se creo el directorio público");
+                    Log.e("ARCHIVOCREADO", "Error: No se creo el directorio público");
 
 
 
-            hol = f_url[0];
-            String direccionCarga = (String) hol.textCarga.getText();
-            DownloadManager.Request request= new DownloadManager.Request(Uri.parse(direccionCarga));
-            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-                    DownloadManager.Request.NETWORK_MOBILE);
-            Log.d("LLEGA","LLEGO EL DATO AL LA CLASEEEE"+ direccionCarga);
-            request.setTitle("Descargando");
-            request.setTitle("Descargando archivo ....");
-            request.allowScanningByMediaScanner();
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS+"/Radio88", "/Radio88"+System.currentTimeMillis());
-            DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-            long id = manager.enqueue(request);
+                 hol = f_url[0];
+                String direccionCarga = (String) hol.textCarga.getText();
+                DownloadManager.Request request= new DownloadManager.Request(Uri.parse(direccionCarga));
+                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                        DownloadManager.Request.NETWORK_MOBILE);
+                Log.d("LLEGA","LLEGO EL DATO AL LA CLASEEEE"+ direccionCarga);
+                request.setTitle("Descargando");
+                request.setTitle("Descargando archivo ....");
+                request.allowScanningByMediaScanner();
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS+"/Radio88", "/Radio88"+System.currentTimeMillis());
+                DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+                long id = manager.enqueue(request);
 
 
 
-            Timer myTimer = new Timer();
-            TimerTask tk = new TimerTask() {
-                @Override
-                public void run() {
+                Timer myTimer = new Timer();
+                TimerTask tk = new TimerTask() {
+                    @Override
+                    public void run() {
 
 
-                    DownloadManager.Query q = new DownloadManager.Query();
-                    q.setFilterById(id);
-                    Cursor cursor = manager.query(q);
-                    cursor.moveToFirst();
-                    int bytes_downloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
-                    int bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
-                    cursor.close();
-                    int dl_progress = (bytes_downloaded * 100 / bytes_total);
-                    if (dl_progress <= 0) {
-                        dl_progress = 100;
+                        DownloadManager.Query q = new DownloadManager.Query();
+                        q.setFilterById(id);
+                        Cursor cursor = manager.query(q);
+                        cursor.moveToFirst();
+                        int bytes_downloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                        int bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                        cursor.close();
+                        int dl_progress = (bytes_downloaded * 100 / bytes_total);
+                        if (dl_progress <= 0) {
+                            dl_progress = 100;
 
-                    }else {
-                        if(dl_progress >= 100){
-                            dl_progress = 0;
+                        }else {
+                            if(dl_progress >= 100){
+                                dl_progress = 0;
 
+                            }
                         }
-                    }
-                    hol.progress_bar.setProgress(dl_progress);
+                        hol.progress_bar.setProgress(dl_progress);
 
-                    Log.e("DESCARGAs", "Tiempo empleado : "+ dl_progress);
-                    //hol.textCarga.setText("Todo tk");
+                        Log.e("DESCARGAs", "Tiempo empleado : "+ dl_progress);
 
 
-                    if(bytes_downloaded == bytes_total){
-                        Log.e("NOTAf", "Se esta descargando "+bytes_downloaded+":"+bytes_total+"Tiempo empleado -------------------: "+ dl_progress);
-                        myTimer.cancel();
-                    }
 
+                        if(bytes_downloaded == bytes_total){
+                            Log.e("NOTAf", "Se esta descargando "+bytes_downloaded+":"+bytes_total+"Tiempo empleado -------------------: "+ dl_progress);
+                            myTimer.cancel();
+                        }
 
-                    while (bytes_downloaded != bytes_total) {
-
-                        publishProgress(""+Integer.toString(dl_progress));
-                        // writing data to file
-
+                            publishProgress(""+Integer.toString(dl_progress));
 
                     }
-
-                }
-            };
-            myTimer.schedule(tk, 0, 100);
+                };
+                myTimer.schedule(tk, 0, 100);
 
 
 
@@ -335,7 +261,8 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         protected void onProgressUpdate(String... progress) {
             // setting progress percentage
 
-            hol.textCarga.setText(progress[1]);
+            Log.e("PPP", "LLego el porcentaje : -----------------------------------"+progress[0]);
+            hol.textCarga.setText(progress[0]);
 
 
 
@@ -390,7 +317,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             mDescripcion = (TextView) itemView.findViewById(R.id.textDescripcion);
             mDescripcion.setMovementMethod(new ScrollingMovementMethod());
             mFecha = (TextView) itemView.findViewById(R.id.textFecha);
-            //   mDuracion = (TextView) itemView.findViewById(R.id.textDuracion);
+        //   mDuracion = (TextView) itemView.findViewById(R.id.textDuracion);
             mImagen = (ImageView) itemView.findViewById(R.id.imageView3);
 
             btnAudio = (Button) itemView.findViewById(R.id.btn_audio);
@@ -401,8 +328,13 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             playerSeekBar = (SeekBar) itemView.findViewById(R.id.playerSeekBar);
             mediaPlayer = new MediaPlayer();
 
+<<<<<<< HEAD
 //            progress_bar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
             //           textCarga = (TextView) itemView.findViewById(R.id.textCarga);
+=======
+            progress_bar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
+            textCarga = (TextView) itemView.findViewById(R.id.textCarga);
+>>>>>>> b1f8363689d9280866142dc61753081045e89255
             carga = textCarga;
 
 
@@ -415,7 +347,12 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     if(mediaPlayer.isPlaying()){
                         Log.d("Audio", "pause");
                         setPendingIntenet();
+<<<<<<< HEAD
                         cancelNotificacion();
+=======
+                        createNotificacionChannel();
+                        createNotificacion();
+>>>>>>> b1f8363689d9280866142dc61753081045e89255
 
                         handler.removeCallbacks(updater);
                         mediaPlayer.pause();
@@ -473,11 +410,6 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
                     NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context.getApplicationContext());
                     notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
-                }
-                private void cancelNotificacion(){
-                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.cancel(NOTIFICACION_ID);
-
                 }
             });
             prepareMediPLayer("");
