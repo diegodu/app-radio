@@ -191,13 +191,6 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             if (!directorio.mkdirs())
                 Log.e("ARCHIVOCREADO", "Error: No se creo el directorio público");
 
-            File directorio = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Radio88");
-            //Muestro un mensaje en el logcat si no se creo la carpeta por algun motivo
-            if (!directorio.mkdirs())
-                Log.e("ARCHIVOCREADO", "Error: No se creo el directorio público");
-
-
-
 
 
             hol = f_url[0];
@@ -358,11 +351,10 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     if(mediaPlayer.isPlaying() && bandera == false){
                         Log.d("Audio", "pause");
                         setPendingIntenet();
-<<<<<<< HEAD
+
                        cancelNotificacion();
-=======
-                        cancelNotificacion();
->>>>>>> ccc862e3f35e76cefd7bb9a2485f9b8fafaceee5
+
+
 
                         handler.removeCallbacks(updater);
                         mediaPlayer.pause();
@@ -372,6 +364,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                         Log.d("BANDERA", "Valor del boleano PAUSAR :"+ bandera);
                     }else{
                         if(bandera == true) {
+
                             Log.d("Audio", "play");
                             createNotificacionChannel();
                             createNotificacion();
@@ -419,20 +412,13 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context.getApplicationContext());
                     notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
                 }
-<<<<<<< HEAD
-=======
 
->>>>>>> ccc862e3f35e76cefd7bb9a2485f9b8fafaceee5
                 private void cancelNotificacion(){
                     NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     notificationManager.cancel(NOTIFICACION_ID);
 
                 }
-<<<<<<< HEAD
-=======
 
-
->>>>>>> ccc862e3f35e76cefd7bb9a2485f9b8fafaceee5
             });
             prepareMediPLayer("");
             playerSeekBar.setOnTouchListener(new View.OnTouchListener() {
@@ -462,6 +448,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                 Log.d("Prepare","musica");
                 mediaPlayer.setDataSource(url);
                 mediaPlayer.prepare();
+
                 textTotalDuracion.setText(milisecondToTime(mediaPlayer.getDuration()));
 
 
