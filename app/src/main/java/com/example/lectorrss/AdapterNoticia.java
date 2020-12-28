@@ -203,10 +203,10 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                         DownloadManager.Request.NETWORK_MOBILE);
                 Log.d("LLEGA","LLEGO EL DATO AL LA CLASEEEE"+ direccionCarga);
                 request.setTitle("Descargando");
-                request.setTitle("Descargando archivo ....");
+                request.setTitle("Radio88");
                 request.allowScanningByMediaScanner();
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS+"/Radio88", "/Radio88"+System.currentTimeMillis());
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS+"/Radio88",  "/Radio88.mp3");
                 DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
                 long id = manager.enqueue(request);
 
@@ -227,7 +227,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                         cursor.close();
                         int dl_progress = (bytes_downloaded * 100 / bytes_total);
                         if (dl_progress <= 0) {
-                            dl_progress = 100;
+                            dl_progress = 99;
 
                         }else {
                             if(dl_progress >= 100){
@@ -242,6 +242,8 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
                         if(bytes_downloaded == bytes_total){
+                            dl_progress = 0;
+                            hol.progress_bar.setProgress(dl_progress);
                             Log.e("NOTAf", "Se esta descargando "+bytes_downloaded+":"+bytes_total+"Tiempo empleado -------------------: "+ dl_progress);
                             myTimer.cancel();
                         }
@@ -265,7 +267,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             // setting progress percentage
 
             Log.e("PPP", "LLego el porcentaje : -----------------------------------"+progress[0]);
-            hol.textCarga.setText(progress[0]);
+            hol.textCarga.setText(progress[0]+"%");
 
 
 
