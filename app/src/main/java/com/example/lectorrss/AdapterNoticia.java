@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -26,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -42,19 +40,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.LogRecord;
-
 
 
 //Utilizamos una extencion de RecyclerView.Adapter la cual nos permitira mostrar un listado de elementos
@@ -89,6 +79,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         View view = LayoutInflater.from(context).inflate(R.layout.item_noticia,parent,false);
         MyViewHolder holder = new MyViewHolder(view);
 
+      //  crearDirectorioPublico("Radio88");
 
 
         return holder;
@@ -169,7 +160,8 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    class DownloadFileFromURL extends AsyncTask<MyViewHolder, String, String> {
+    class DownloadFileFromURL extends AsyncTask<MyViewHolder, String, Boolean> {
+
         MyViewHolder hol;
         /**
          * Before starting background thread
@@ -177,23 +169,33 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
          * */
         @Override
         protected void onPreExecute() {
+            Toast toast1 =
+                    Toast.makeText(context.getApplicationContext(),
+                            "Empieza descarga", Toast.LENGTH_SHORT);
+
+            toast1.show();
 
         }
 
         /**
          * Downloading file in background thread
-         * */
-        @Override
-        protected String doInBackground(MyViewHolder... f_url) {
+         *
+         * @return*/
 
-            File directorio = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Radio88");
+        @Override
+        protected Boolean doInBackground(MyViewHolder... f_url) {
+
+            /*File directorio = new File(Environment.getExternalStoragePublicDirectory (Environment.DIRECTORY_DOWNLOADS), "Radio88");
             //Muestro un mensaje en el logcat si no se creo la carpeta por algun motivo
             if (!directorio.mkdirs())
-                Log.e("ARCHIVOCREADO", "Error: No se creo el directorio público");
+                Log.e("ARCHIVOCREADO", "Error: No se creo el directorio público");*/
+            File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), "MyRadio");
 
-
-
-
+            if (!mediaStorageDir.exists()) {
+                if (!mediaStorageDir.mkdirs()) {
+                    Log.d("App", "failed to create directory");
+                }
+            }
 
 
             hol = f_url[0];
@@ -206,7 +208,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             request.setTitle("Radio88");
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS+"/Radio88",  "/Radio88.mp3");
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC,  "MyRadio/Radio88.mp3");
             DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             long id = manager.enqueue(request);
 
@@ -226,7 +228,9 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     int bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
                     cursor.close();
                     int dl_progress = (bytes_downloaded * 100 / bytes_total);
-                    if (dl_progress <= 0) {
+                  //  dl_progress = Math.abs(dl_progress);
+
+                     if (dl_progress < 0) {
                         dl_progress = 99;
 
                     }else {
@@ -235,9 +239,13 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
                         }
                     }
+
                     hol.progress_bar.setProgress(dl_progress);
 
                     Log.e("DESCARGAs", "Tiempo empleado : "+ dl_progress);
+
+
+
 
 
 
@@ -246,18 +254,25 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                         hol.progress_bar.setProgress(dl_progress);
                         Log.e("NOTAf", "Se esta descargando "+bytes_downloaded+":"+bytes_total+"Tiempo empleado -------------------: "+ dl_progress);
                         myTimer.cancel();
+
+
+
                     }
 
                     publishProgress(""+Integer.toString(dl_progress));
 
+
+
                 }
+
             };
+
             myTimer.schedule(tk, 0, 100);
 
 
 
 
-            return null;
+            return true;
         }
 
         /**
@@ -277,11 +292,26 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
          * After completing background task
          * Dismiss the progress dialog
          * **/
-        @Override
-        protected void onPostExecute(String file_url) {
-            // dismiss the dialog after the file was downloaded
 
+        @Override
+        protected void onPostExecute(Boolean result) {
+            Toast.makeText(context, "Ding! Your Toast is ready.",   Toast.LENGTH_SHORT).show();
         }
+
+        @Override
+        protected void onCancelled() {
+            Toast.makeText(context, "Tarea cancelada!",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
+
+
+
+
+
 
     }
 
