@@ -79,7 +79,11 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         View view = LayoutInflater.from(context).inflate(R.layout.item_noticia,parent,false);
         MyViewHolder holder = new MyViewHolder(view);
 
+<<<<<<< HEAD
       //  crearDirectorioPublico("Radio88");
+=======
+        //  crearDirectorioPublico("Radio88");
+>>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
 
         return holder;
@@ -160,9 +164,14 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
     class DownloadFileFromURL extends AsyncTask<MyViewHolder, String, Boolean> {
+=======
+    class DownloadFileFromURL extends AsyncTask<MyViewHolder, String, String> {
+>>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
         MyViewHolder hol;
+        String drc;
         /**
          * Before starting background thread
          * Show Progress Bar Dialog
@@ -179,8 +188,12 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
         /**
          * Downloading file in background thread
+<<<<<<< HEAD
          *
          * @return*/
+=======
+         * */
+>>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
         @Override
         protected Boolean doInBackground(MyViewHolder... f_url) {
@@ -190,12 +203,37 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             if (!directorio.mkdirs())
                 Log.e("ARCHIVOCREADO", "Error: No se creo el directorio público");*/
             File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), "MyRadio");
+<<<<<<< HEAD
 
             if (!mediaStorageDir.exists()) {
                 if (!mediaStorageDir.mkdirs()) {
                     Log.d("App", "failed to create directory");
                 }
             }
+=======
+
+            if (!mediaStorageDir.exists()) {
+                if (!mediaStorageDir.mkdirs()) {
+                    Log.d("App", "failed to create directory");
+                }
+            }
+
+
+            hol = f_url[0];
+            String direccionCarga = (String) hol.textCarga.getText();
+            drc = direccionCarga;
+            DownloadManager.Request request= new DownloadManager.Request(Uri.parse(direccionCarga));
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                    DownloadManager.Request.NETWORK_MOBILE);
+            Log.d("LLEGA","LLEGO EL DATO AL LA CLASEEEE"+ direccionCarga);
+            request.setTitle("Descargando");
+            request.setTitle("Radio88");
+            request.allowScanningByMediaScanner();
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC,  "MyRadio/Radio88.mp3");
+            DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+            long id = manager.enqueue(request);
+>>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
 
             hol = f_url[0];
@@ -212,14 +250,33 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             long id = manager.enqueue(request);
 
-
-
             Timer myTimer = new Timer();
             TimerTask tk = new TimerTask() {
                 @Override
                 public void run() {
 
 
+<<<<<<< HEAD
+            Timer myTimer = new Timer();
+            TimerTask tk = new TimerTask() {
+                @Override
+                public void run() {
+=======
+                    DownloadManager.Query q = new DownloadManager.Query();
+                    q.setFilterById(id);
+                    Cursor cursor = manager.query(q);
+                    cursor.moveToFirst();
+                    int bytes_downloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                    int bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                    cursor.close();
+                    int dl_progress = (bytes_downloaded * 100 / bytes_total);
+                    //  dl_progress = Math.abs(dl_progress);
+>>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
+
+                    if (dl_progress < 0) {
+                        dl_progress = 99;
+
+<<<<<<< HEAD
                     DownloadManager.Query q = new DownloadManager.Query();
                     q.setFilterById(id);
                     Cursor cursor = manager.query(q);
@@ -243,10 +300,25 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     hol.progress_bar.setProgress(dl_progress);
 
                     Log.e("DESCARGAs", "Tiempo empleado : "+ dl_progress);
+=======
+                    }else {
+                        if(dl_progress >= 100){
+                            dl_progress = 0;
+
+                        }
+                    }
+
+                    hol.progress_bar.setProgress(dl_progress);
+
+                    Log.e("DESCARGAs", "Tiempo empleado : "+ dl_progress);
+
+
+>>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
 
 
 
+<<<<<<< HEAD
 
 
                     if(bytes_downloaded == bytes_total){
@@ -258,6 +330,28 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
                     }
+=======
+                    if(bytes_downloaded == bytes_total){
+
+                        dl_progress = 101;
+                        hol.progress_bar.setProgress(0);
+
+                        Log.e("NOTAf", "Se esta descargando "+bytes_downloaded+":"+bytes_total+"Tiempo empleado -------------------: "+ dl_progress);
+                        myTimer.cancel();
+
+
+                    }
+
+                    publishProgress(""+Integer.toString(dl_progress));
+
+
+
+                }
+
+            };
+
+            myTimer.schedule(tk, 0, 100);
+>>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
                     publishProgress(""+Integer.toString(dl_progress));
 
@@ -283,6 +377,10 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
             Log.e("PPP", "LLego el porcentaje : -----------------------------------"+progress[0]);
             hol.textCarga.setText(progress[0]+"%");
+            if(progress[0].endsWith("101")){
+                hol.textCarga.setText(drc);
+            }
+
 
 
 
@@ -294,9 +392,22 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
          * **/
 
         @Override
+<<<<<<< HEAD
         protected void onPostExecute(Boolean result) {
             Toast.makeText(context, "Ding! Your Toast is ready.",   Toast.LENGTH_SHORT).show();
         }
+=======
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after the file was downloaded
+            file_url = url;
+            hol.textCarga.setText(file_url);
+            Toast toast1 =
+                    Toast.makeText(context.getApplicationContext(),
+                            "Descarga Completada", Toast.LENGTH_SHORT);
+
+            toast1.show();
+
+>>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
         @Override
         protected void onCancelled() {
