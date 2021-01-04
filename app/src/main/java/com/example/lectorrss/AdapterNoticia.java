@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -25,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -40,11 +42,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.LogRecord;
+
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 
 //Utilizamos una extencion de RecyclerView.Adapter la cual nos permitira mostrar un listado de elementos
@@ -79,11 +90,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         View view = LayoutInflater.from(context).inflate(R.layout.item_noticia,parent,false);
         MyViewHolder holder = new MyViewHolder(view);
 
-<<<<<<< HEAD
-      //  crearDirectorioPublico("Radio88");
-=======
         //  crearDirectorioPublico("Radio88");
->>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
 
         return holder;
@@ -164,11 +171,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
-    class DownloadFileFromURL extends AsyncTask<MyViewHolder, String, Boolean> {
-=======
     class DownloadFileFromURL extends AsyncTask<MyViewHolder, String, String> {
->>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
         MyViewHolder hol;
         String drc;
@@ -188,29 +191,16 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
         /**
          * Downloading file in background thread
-<<<<<<< HEAD
-         *
-         * @return*/
-=======
          * */
->>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
         @Override
-        protected Boolean doInBackground(MyViewHolder... f_url) {
+        protected String doInBackground(MyViewHolder... f_url) {
 
             /*File directorio = new File(Environment.getExternalStoragePublicDirectory (Environment.DIRECTORY_DOWNLOADS), "Radio88");
             //Muestro un mensaje en el logcat si no se creo la carpeta por algun motivo
             if (!directorio.mkdirs())
                 Log.e("ARCHIVOCREADO", "Error: No se creo el directorio público");*/
             File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), "MyRadio");
-<<<<<<< HEAD
-
-            if (!mediaStorageDir.exists()) {
-                if (!mediaStorageDir.mkdirs()) {
-                    Log.d("App", "failed to create directory");
-                }
-            }
-=======
 
             if (!mediaStorageDir.exists()) {
                 if (!mediaStorageDir.mkdirs()) {
@@ -233,22 +223,8 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC,  "MyRadio/Radio88.mp3");
             DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             long id = manager.enqueue(request);
->>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
 
-            hol = f_url[0];
-            String direccionCarga = (String) hol.textCarga.getText();
-            DownloadManager.Request request= new DownloadManager.Request(Uri.parse(direccionCarga));
-            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-                    DownloadManager.Request.NETWORK_MOBILE);
-            Log.d("LLEGA","LLEGO EL DATO AL LA CLASEEEE"+ direccionCarga);
-            request.setTitle("Descargando");
-            request.setTitle("Radio88");
-            request.allowScanningByMediaScanner();
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC,  "MyRadio/Radio88.mp3");
-            DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-            long id = manager.enqueue(request);
 
             Timer myTimer = new Timer();
             TimerTask tk = new TimerTask() {
@@ -256,12 +232,6 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                 public void run() {
 
 
-<<<<<<< HEAD
-            Timer myTimer = new Timer();
-            TimerTask tk = new TimerTask() {
-                @Override
-                public void run() {
-=======
                     DownloadManager.Query q = new DownloadManager.Query();
                     q.setFilterById(id);
                     Cursor cursor = manager.query(q);
@@ -271,36 +241,10 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     cursor.close();
                     int dl_progress = (bytes_downloaded * 100 / bytes_total);
                     //  dl_progress = Math.abs(dl_progress);
->>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
                     if (dl_progress < 0) {
                         dl_progress = 99;
 
-<<<<<<< HEAD
-                    DownloadManager.Query q = new DownloadManager.Query();
-                    q.setFilterById(id);
-                    Cursor cursor = manager.query(q);
-                    cursor.moveToFirst();
-                    int bytes_downloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
-                    int bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
-                    cursor.close();
-                    int dl_progress = (bytes_downloaded * 100 / bytes_total);
-                  //  dl_progress = Math.abs(dl_progress);
-
-                     if (dl_progress < 0) {
-                        dl_progress = 99;
-
-                    }else {
-                        if(dl_progress >= 100){
-                            dl_progress = 0;
-
-                        }
-                    }
-
-                    hol.progress_bar.setProgress(dl_progress);
-
-                    Log.e("DESCARGAs", "Tiempo empleado : "+ dl_progress);
-=======
                     }else {
                         if(dl_progress >= 100){
                             dl_progress = 0;
@@ -313,24 +257,10 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     Log.e("DESCARGAs", "Tiempo empleado : "+ dl_progress);
 
 
->>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
 
 
 
-<<<<<<< HEAD
-
-
-                    if(bytes_downloaded == bytes_total){
-                        dl_progress = 0;
-                        hol.progress_bar.setProgress(dl_progress);
-                        Log.e("NOTAf", "Se esta descargando "+bytes_downloaded+":"+bytes_total+"Tiempo empleado -------------------: "+ dl_progress);
-                        myTimer.cancel();
-
-
-
-                    }
-=======
                     if(bytes_downloaded == bytes_total){
 
                         dl_progress = 101;
@@ -351,22 +281,11 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             };
 
             myTimer.schedule(tk, 0, 100);
->>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
-
-                    publishProgress(""+Integer.toString(dl_progress));
-
-
-
-                }
-
-            };
-
-            myTimer.schedule(tk, 0, 100);
 
 
 
 
-            return true;
+            return null;
         }
 
         /**
@@ -377,9 +296,18 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
             Log.e("PPP", "LLego el porcentaje : -----------------------------------"+progress[0]);
             hol.textCarga.setText(progress[0]+"%");
+            hol.btnAudio.setEnabled(false);
             if(progress[0].endsWith("101")){
+                Toast toast1 =
+                        Toast.makeText(context.getApplicationContext(),
+                                "Descarga Completada", Toast.LENGTH_SHORT);
+
+                toast1.show();
+                hol.btnAudio.setEnabled(true);
                 hol.textCarga.setText(drc);
+                openFolder();
             }
+
 
 
 
@@ -390,38 +318,40 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
          * After completing background task
          * Dismiss the progress dialog
          * **/
-
         @Override
-<<<<<<< HEAD
-        protected void onPostExecute(Boolean result) {
-            Toast.makeText(context, "Ding! Your Toast is ready.",   Toast.LENGTH_SHORT).show();
-        }
-=======
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
             file_url = url;
             hol.textCarga.setText(file_url);
-            Toast toast1 =
-                    Toast.makeText(context.getApplicationContext(),
-                            "Descarga Completada", Toast.LENGTH_SHORT);
 
-            toast1.show();
 
->>>>>>> 848ff4860889aca33f99336c646f01cf5b2b1d29
 
-        @Override
-        protected void onCancelled() {
-            Toast.makeText(context, "Tarea cancelada!",
-                    Toast.LENGTH_SHORT).show();
+
         }
+     /*   public void openFolder(){
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            Uri uri = Uri.parse(Environment.DIRECTORY_MUSIC
+                    + "/MyRadio");
+           // intent.setDataAndType(uri, "text/csv");
+
+            context.startActivity(Intent.createChooser(intent, "Open folder"));
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }*/
+
+       public void openFolder(){
+           Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+           Uri uri = Uri.parse(Environment.DIRECTORY_DOWNLOADS);
+           intent.setDataAndType(uri, ".mp3");
+           context.startActivity(Intent.createChooser(intent, "Open folder"));
+         /*  Intent intent = new Intent();
+           intent.setType("audio/mp3");
+           intent.setAction(Intent.ACTION_GET_CONTENT);
+           startActivityForResult(Intent.createChooser(
+                   intent, "Open Audio (mp3) file"),);*/
 
 
 
-
-
-
-
-
+        }
 
 
     }
