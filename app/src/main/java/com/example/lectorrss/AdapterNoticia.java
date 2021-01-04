@@ -104,7 +104,8 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         holder.mTitulo.setText(actual.getnTitulo());
         holder.mDescripcion.setText(corregirDescripcion(actual.getmDescripcion()));
         holder.mFecha.setText(actual.getmFechaPub());
-        holder.textCarga.setText(actual.mAudio);
+        holder.textCarga.setText("0%");
+        holder.textUrlc.setText(actual.mAudio);
 
 
 
@@ -209,7 +210,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
             hol = f_url[0];
-            String direccionCarga = (String) hol.textCarga.getText();
+            String direccionCarga = (String) hol.textUrlc.getText();
             drc = direccionCarga;
             DownloadManager.Request request= new DownloadManager.Request(Uri.parse(direccionCarga));
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
@@ -296,7 +297,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             Log.e("PPP", "LLego el porcentaje : -----------------------------------"+progress[0]);
             hol.textCarga.setText(progress[0]+"%");
             if(progress[0].endsWith("101")){
-                hol.textCarga.setText(drc);
+                hol.textCarga.setText("0%");
             }
 
 
@@ -312,7 +313,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
             file_url = url;
-            hol.textCarga.setText(file_url);
+
             Toast toast1 =
                     Toast.makeText(context.getApplicationContext(),
                             "Descarga Completada", Toast.LENGTH_SHORT);
@@ -354,7 +355,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         ImageView mImagen;
         Button btnAudio, downloadAudio;
         private ImageView ImagePlayPause;
-        private TextView textCurrentTime, textTotalDuracion, textCarga;
+        private TextView textCurrentTime, textTotalDuracion, textCarga, textUrlc;
         private SeekBar playerSeekBar;
         private MediaPlayer mediaPlayer;
         private Handler handler = new Handler();
@@ -383,7 +384,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
             progress_bar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
             textCarga = (TextView) itemView.findViewById(R.id.textCarga);
-            carga = textCarga;
+            textUrlc = (TextView) itemView.findViewById(R.id.textUrlc);
 
 
             playerSeekBar.setMax(100);
