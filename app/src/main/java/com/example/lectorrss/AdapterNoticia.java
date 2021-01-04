@@ -55,6 +55,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.LogRecord;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 
 //Utilizamos una extencion de RecyclerView.Adapter la cual nos permitira mostrar un listado de elementos
@@ -104,8 +105,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         holder.mTitulo.setText(actual.getnTitulo());
         holder.mDescripcion.setText(corregirDescripcion(actual.getmDescripcion()));
         holder.mFecha.setText(actual.getmFechaPub());
-        holder.textCarga.setText("0%");
-        holder.textUrlc.setText(actual.mAudio);
+        holder.textCarga.setText(actual.mAudio);
 
 
 
@@ -210,7 +210,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
             hol = f_url[0];
-            String direccionCarga = (String) hol.textUrlc.getText();
+            String direccionCarga = (String) hol.textCarga.getText();
             drc = direccionCarga;
             DownloadManager.Request request= new DownloadManager.Request(Uri.parse(direccionCarga));
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
@@ -296,9 +296,18 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
             Log.e("PPP", "LLego el porcentaje : -----------------------------------"+progress[0]);
             hol.textCarga.setText(progress[0]+"%");
+            hol.btnAudio.setEnabled(false);
             if(progress[0].endsWith("101")){
-                hol.textCarga.setText("0%");
+                Toast toast1 =
+                        Toast.makeText(context.getApplicationContext(),
+                                "Descarga Completada", Toast.LENGTH_SHORT);
+
+                toast1.show();
+                hol.btnAudio.setEnabled(true);
+                hol.textCarga.setText(drc);
+                openFolder();
             }
+
 
 
 
@@ -313,15 +322,37 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
             file_url = url;
+            hol.textCarga.setText(file_url);
 
-            Toast toast1 =
-                    Toast.makeText(context.getApplicationContext(),
-                            "Descarga Completada", Toast.LENGTH_SHORT);
 
-            toast1.show();
 
 
         }
+     /*   public void openFolder(){
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            Uri uri = Uri.parse(Environment.DIRECTORY_MUSIC
+                    + "/MyRadio");
+           // intent.setDataAndType(uri, "text/csv");
+
+            context.startActivity(Intent.createChooser(intent, "Open folder"));
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }*/
+
+       public void openFolder(){
+           Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+           Uri uri = Uri.parse(Environment.DIRECTORY_DOWNLOADS);
+           intent.setDataAndType(uri, ".mp3");
+           context.startActivity(Intent.createChooser(intent, "Open folder"));
+         /*  Intent intent = new Intent();
+           intent.setType("audio/mp3");
+           intent.setAction(Intent.ACTION_GET_CONTENT);
+           startActivityForResult(Intent.createChooser(
+                   intent, "Open Audio (mp3) file"),);*/
+
+
+
+        }
+
 
     }
 
@@ -355,7 +386,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         ImageView mImagen;
         Button btnAudio, downloadAudio;
         private ImageView ImagePlayPause;
-        private TextView textCurrentTime, textTotalDuracion, textCarga, textUrlc;
+        private TextView textCurrentTime, textTotalDuracion, textCarga;
         private SeekBar playerSeekBar;
         private MediaPlayer mediaPlayer;
         private Handler handler = new Handler();
@@ -384,7 +415,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
             progress_bar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
             textCarga = (TextView) itemView.findViewById(R.id.textCarga);
-            textUrlc = (TextView) itemView.findViewById(R.id.textUrlc);
+            carga = textCarga;
 
 
             playerSeekBar.setMax(100);
