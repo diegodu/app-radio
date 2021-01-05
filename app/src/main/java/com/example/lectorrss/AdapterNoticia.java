@@ -175,6 +175,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
         MyViewHolder hol;
         String drc;
+
         /**
          * Before starting background thread
          * Show Progress Bar Dialog
@@ -239,22 +240,28 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                     int bytes_downloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
                     int bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
                     cursor.close();
-                    int dl_progress = (bytes_downloaded * 100 / bytes_total);
+                    int preProceso = bytes_downloaded * 100;
+                    int dl_progress = preProceso/ bytes_total;
+                    float resultado = (float)(26500670 * 100)/38833913;
+                    Log.e("ARITMETICA", "Resultado +++++++++++++++++++++++++++++++++++++ : " + resultado);
                     //  dl_progress = Math.abs(dl_progress);
 
-                    if (dl_progress < 0) {
-                        dl_progress = 99;
 
-                    }else {
-                        if(dl_progress >= 100){
-                            dl_progress = 0;
 
+
+                        if (dl_progress < 0) {
+                            dl_progress = 99;
+
+                        } else {
+                            if (dl_progress >= 100) {
+                                dl_progress = 0;
+
+                            }
                         }
-                    }
 
-                    hol.progress_bar.setProgress(dl_progress);
+                        hol.progress_bar.setProgress(dl_progress);
 
-                    Log.e("DESCARGAs", "Tiempo empleado : "+ dl_progress);
+                        Log.e("DESCARGAs", "Tiempo empleado : " + dl_progress);
 
 
 
