@@ -46,6 +46,7 @@ import com.squareup.picasso.Picasso;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
@@ -65,6 +66,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
     ArrayList<Noticia> noticias;
     Context context;
     String url;
+    String direccionCarga;
     int vari =1;
     private boolean bandera = true;
     private static final int PERMISSION_STORAGE_CODE = 1000;
@@ -181,17 +183,19 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
             hol = f_url[0];
-            String direccionCarga = (String) hol.textCarga2.getText();
+            direccionCarga = (String) hol.textCarga2.getText();
             drc = direccionCarga;
+            String nombreCancion = direccionCarga.substring(21,direccionCarga.length());
+            Log.d("Direccion",nombreCancion);
             DownloadManager.Request request= new DownloadManager.Request(Uri.parse(direccionCarga));
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
                     DownloadManager.Request.NETWORK_MOBILE);
             Log.d("LLEGA","LLEGO EL DATO AL LA CLASEEEE"+ direccionCarga);
             request.setTitle("Descargando");
-            request.setTitle("Radio88");
+            request.setTitle(nombreCancion);
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC,  "MyRadio/Radio88.mp3");
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC,  "MyRadio/"+nombreCancion);
             DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             long id = manager.enqueue(request);
 
@@ -272,7 +276,11 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                 toast1.show();
                 hol.btnAudio.setEnabled(true);
                 hol.textCarga.setText("0%");
-                openFolder();
+                try {
+                    openFolder();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -291,29 +299,26 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
         }
-        public void openFolder(){
-<<<<<<< HEAD
+        public void openFolder() throws IOException {
 
-
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
-            Uri data = Uri.parse(Environment.getExternalStorageDirectory() + "/"+ Environment.DIRECTORY_MUSIC+ "/MyRadio"+"/Radio88.mp3"
-                   );
-            Log.d("Path", String.valueOf(data));
-            intent.setDataAndType(data, "audio/mp3");
-         //   intent.addFlags(intent.FLAG_GRANT_READ_URI_PERMISSION);
-            context.startActivity(intent);
-
-           // context.startActivity(intent.createChooser(intent, "Open folder"));
-
-=======
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri uri = Uri.parse(Environment.DIRECTORY_MUSIC + "/MyRadio/");
+           // intent.setAction(Integer.)
+            Uri uri = Uri.parse(Environment.getExternalStorageDirectory() + "/"+ Environment.DIRECTORY_MUSIC + "/MyRadio");
             intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri);
+        //    intent.setType("mp3");
+            Log.d("Ruta", String.valueOf(uri));
 
+          // intent.setDataAndType(uri, "audio/mp3");
 
-            context.startActivity(Intent.createChooser(intent, "Open folder"));
->>>>>>> 5730376c336d75e188a58a64afb0d9e83de4e2fc
+            context.startActivity(intent);
+            String rutaArchivo = Environment.getExternalStorageDirectory() + "/"+ Environment.DIRECTORY_MUSIC + "/MyRadio/"+direccionCarga;
+            MediaPlayer mediaPlayer = new  MediaPlayer();
+            mediaPlayer.setDataSource(rutaArchivo);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+         //   context.startActivity(Intent.createChooser(intent, "Open folder"));
+
 
         }
 
