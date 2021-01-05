@@ -20,6 +20,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.DocumentsContract;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -291,6 +292,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
         }
         public void openFolder(){
+<<<<<<< HEAD
 
 
             Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
@@ -303,6 +305,15 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
            // context.startActivity(intent.createChooser(intent, "Open folder"));
 
+=======
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri uri = Uri.parse(Environment.DIRECTORY_MUSIC + "/MyRadio/");
+            intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri);
+
+
+            context.startActivity(Intent.createChooser(intent, "Open folder"));
+>>>>>>> 5730376c336d75e188a58a64afb0d9e83de4e2fc
 
         }
 
