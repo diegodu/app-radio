@@ -291,13 +291,19 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
         }
         public void openFolder(){
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            Uri uri = Uri.parse(Environment.DIRECTORY_MUSIC
-                    + "/MyRadio");
-            intent.setType("music/mp3");
 
-            context.startActivity(Intent.createChooser(intent, "Open folder"));
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+            Uri data = Uri.parse(Environment.getExternalStorageDirectory() + "/"+ Environment.DIRECTORY_MUSIC+ "/MyRadio"+"/Radio88.mp3"
+                   );
+            Log.d("Path", String.valueOf(data));
+            intent.setDataAndType(data, "audio/mp3");
+         //   intent.addFlags(intent.FLAG_GRANT_READ_URI_PERMISSION);
+            context.startActivity(intent);
+
+           // context.startActivity(intent.createChooser(intent, "Open folder"));
+
+
         }
 
     }
