@@ -118,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.inicio_menu, menu);
         return true;
     }
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item){
         return NavigationUI.onNavDestinationSelected(item, super.onOptionsItemSelected(item));
-    }
+    }*/
 
 
 
