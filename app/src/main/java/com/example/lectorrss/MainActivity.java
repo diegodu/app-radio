@@ -1,7 +1,6 @@
 package com.example.lectorrss;
 
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
@@ -11,13 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.lectorrss.LectorRss;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -138,6 +134,17 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("url",direccion);
         startActivity(intent);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.inicio_menu, menu);
+        return true;
+    }
+   /* @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        return NavigationUI.onNavDestinationSelected(item, super.onOptionsItemSelected(item));
+    }*/
+
 
 
 
