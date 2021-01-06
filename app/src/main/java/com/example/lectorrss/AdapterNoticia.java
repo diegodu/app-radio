@@ -518,4 +518,6 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         }
     }
 
+
+
 }

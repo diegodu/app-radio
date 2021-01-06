@@ -38,4 +38,9 @@
         android:name="com.example.lectorrss.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/musicaLocal"
+        android:name="com.example.lectorrss.MusicaLocal"
+        android:label="activity_musica_local"
+        tools:layout="@layout/activity_musica_local" />
 </navigation>

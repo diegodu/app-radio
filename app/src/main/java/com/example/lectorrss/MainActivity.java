@@ -6,12 +6,15 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lectorrss.LectorRss;
@@ -30,6 +33,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_inicio, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.listaMusica:
+                Log.e("PERSAJE","ENTRO AL MENU OVERFLOW Y MOSTROOOOOOOOOOOOOOOOOOOOOOO");
+                Intent intent = new Intent(MainActivity.this,MusicaLocal.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 
 
     public void LanzarNotificacion(View v){
@@ -40,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         pendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
 
     }
+
+
 
     public void button_area88(View view){
         String direccion = "https://www.ivoox.com/podcast-area-88_fg_f1250443_filtro_1.xml";
