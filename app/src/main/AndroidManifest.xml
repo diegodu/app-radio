@@ -21,7 +21,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             ></activity>
-        <service android:name="com.example.lectorrss.MusicService" />
+        <service android:name=".MusicService" />
         <activity
             android:name=".RadioDatos"
             android:parentActivityName=".MainActivity">

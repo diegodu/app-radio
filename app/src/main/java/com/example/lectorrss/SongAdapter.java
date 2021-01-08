@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-public class SongAdapter extends BaseAdapter {
+public class  SongAdapter extends BaseAdapter {
     private ArrayList<Song> songs;
     private LayoutInflater songInf;
 
