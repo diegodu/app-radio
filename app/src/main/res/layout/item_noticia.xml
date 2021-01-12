@@ -87,6 +87,12 @@
                     android:layout_height="wrap_content"
                     android:text="Descargar"
                     />
+                <Button
+                    android:id="@+id/btn_ver"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ver descarga"
+                    />
 
                 <ProgressBar
                     android:id="@+id/progress_bar"

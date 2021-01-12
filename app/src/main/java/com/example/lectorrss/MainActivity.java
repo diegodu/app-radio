@@ -33,23 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_inicio, menu);
-        return true;
-    }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.listaMusica:
-                Log.e("PERSAJE","ENTRO AL MENU OVERFLOW Y MOSTROOOOOOOOOOOOOOOOOOOOOOO");
-                Intent intent = new Intent(MainActivity.this,MusicaLocal.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
 
 

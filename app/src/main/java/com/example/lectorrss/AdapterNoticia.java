@@ -89,6 +89,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         return holder;
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
@@ -98,6 +99,13 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
         holder.mFecha.setText(actual.getmFechaPub());
         holder.textCarga.setText("0%");
         holder.textCarga2.setText(actual.mAudio);
+        holder.btnVer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (v.getContext(), MusicaLocal.class);
+                context.startActivity(intent);
+            }
+        });
 
         url = actual.mAudio;
         holder.btnAudio.setOnClickListener(new View.OnClickListener() {
@@ -276,11 +284,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
                 toast1.show();
                 hol.btnAudio.setEnabled(true);
                 hol.textCarga.setText("0%");
-                try {
-                    openFolder();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                //  openFolder();
             }
 
         }
@@ -299,7 +303,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
 
 
         }
-        public void openFolder() throws IOException {
+     /*   public void openFolder() throws IOException {
 
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -320,7 +324,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
          //   context.startActivity(Intent.createChooser(intent, "Open folder"));
 
 
-        }
+        }*/
 
     }
 
@@ -344,7 +348,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView mTitulo, mDescripcion, mFecha, mDuracion;
         ImageView mImagen;
-        Button btnAudio, downloadAudio;
+        Button btnAudio, downloadAudio,btnVer;
         private ImageView ImagePlayPause;
         private TextView textCurrentTime, textTotalDuracion, textCarga, textCarga2;
         private SeekBar playerSeekBar;
@@ -363,6 +367,7 @@ public class AdapterNoticia extends RecyclerView.Adapter<AdapterNoticia.MyViewHo
             mImagen = (ImageView) itemView.findViewById(R.id.imageView3);
 
             btnAudio = (Button) itemView.findViewById(R.id.btn_audio);
+            btnVer = (Button) itemView.findViewById(R.id.btn_ver);
 
             ImagePlayPause = (ImageView) itemView.findViewById(R.id.img_btnPlayPause);
             textCurrentTime = (TextView) itemView.findViewById(R.id.textCurrentTime);
