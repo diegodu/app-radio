@@ -13,6 +13,7 @@ import java.util.Comparator;
 import android.net.Uri;
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.os.Environment;
 import android.os.IBinder;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -137,7 +138,7 @@ public class MusicaLocal extends AppCompatActivity implements MediaPlayerControl
     public void getSongList(){
         //query external audio
         ContentResolver musicResolver = getContentResolver();
-        Uri musicUri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        Uri musicUri = android.provider.MediaStore.Audio.Media.getContentUriForPath(Environment.getExternalStorageDirectory() + "/"+ Environment.DIRECTORY_MUSIC + "/MyRadio");
         Cursor musicCursor = musicResolver.query(musicUri, null, null, null, null);
         //iterate over results if valid
         if(musicCursor!=null && musicCursor.moveToFirst()){
